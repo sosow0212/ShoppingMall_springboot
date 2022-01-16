@@ -8,13 +8,13 @@
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
 
-    <title>아이템 업로드</title>
+    <title>아이템 수정</title>
 </head>
 <body>
 
 <div class="layout">
-    <h1 class="mb-5 text-center fs-2">아이템 업로드</h1>
-    <form action="/item/upload/process" method="post">
+    <h1 class="mb-5 text-center fs-2">아이템 수정하기</h1>
+    <form th:action="@{/item/{id}/modify/process(id=${item.getId()})}" method="post">
 
         <label for="name" class="mb-1">아이템 이름</label>
         <input name="name" id="name" type="text" class="mb-3">

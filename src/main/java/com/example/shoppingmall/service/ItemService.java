@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -26,6 +27,18 @@ public class ItemService {
     // 아이템 개별로 불러오기
     public Item itemView(Integer id) {
         return itemRepository.findById(id).get();
+    }
+
+
+    // 아이템 수정
+    public void itemModify(Item item, Integer id) {
+        Item before = itemRepository.findItemById(id);
+        before.setName(item.getName());
+        before.setText(item.getText());
+        before.setPrice(item.getPrice());
+        before.setStock(item.getStock());
+        itemRepository.save(before);
+
     }
 
 

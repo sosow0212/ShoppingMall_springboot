@@ -50,7 +50,8 @@ public class ItemController {
 
     // 아이템 수정 페이지
     @GetMapping("/item/{id}/modify")
-    public String itemModify(@PathVariable("id") Integer id) {
+    public String itemModify(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("item", itemService.itemView(id));
         return "itemmodify";
     }
 
@@ -58,6 +59,7 @@ public class ItemController {
     // 아이템 수정 처리
     @PostMapping("/item/{id}/modify/process")
     public String itemModifyProcess(Item item, @PathVariable("id") Integer id) {
+        itemService.itemModify(item, id);
         return "redirect:/main";
     }
 
