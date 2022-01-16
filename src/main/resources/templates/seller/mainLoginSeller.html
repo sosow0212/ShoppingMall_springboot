@@ -34,7 +34,10 @@
                     </ul>
                     <form class="d-flex">
 
-                        <a class="btn btn-outline-dark" href="#" th:text="|${user.getName()}님 환영합니다.|">
+                        <a class="btn btn-outline-dark" th:href="@{/seller/{id}(id=${user.getId()})}">
+                            판매 관리
+                        </a>
+                        <a class="btn btn-outline-dark" th:href="@{/user/{id}(id=${user.getId()})}" th:text="|${user.getName()}님 환영합니다.|">
                             ~~님 환영
                         </a>
                         <a class="btn btn-outline-dark" th:href="@{/logout}">

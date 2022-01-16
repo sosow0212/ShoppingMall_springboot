@@ -11,6 +11,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class ItemService {
+
     private final ItemRepository itemRepository;
 
     // 아이템 등록
