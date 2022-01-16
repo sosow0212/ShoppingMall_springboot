@@ -7,7 +7,7 @@
         <meta name="author" content="" />
         <title th:text="${item.getName()}">타이틀 - 상품 이름</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../../../../../../Downloads/startbootstrap-shop-item-gh-pages/assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="../../../../../../../Downloads/startbootstrap-shop-item-gh-pages/assets/favicon.ico" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -33,11 +33,7 @@
                         </li>
                     </ul>
                     <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
+
                         <a class="btn btn-outline-dark" href="#" th:text="|${user.getName()}님 환영합니다.|">
                             관리자님~~
                         </a>
@@ -63,11 +59,7 @@
                         <p class="lead" th:text="${item.getText()}">아이템 설명</p>
 
                         <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                                <i class="bi-cart-fill me-1"></i>
-                                Add to cart
-                            </button>
+
                             <a th:href="@{/item/{id}/modify(id=${item.getId()})}">
                                 <button class="btn btn-outline-dark flex-shrink-0" type="button">
                                     아이템 수정
