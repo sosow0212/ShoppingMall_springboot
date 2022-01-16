@@ -20,7 +20,7 @@ public class AuthService {
         String rawPassword = user.getPassword();
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
         user.setPassword(encPassword);
-        user.setRole("ROLE_USER"); // 기본 user 권한
+        user.setGrade("BRONZE"); // 기본 Grade 설정
 
         User userEntity = userRepository.save(user);
         return userEntity;
