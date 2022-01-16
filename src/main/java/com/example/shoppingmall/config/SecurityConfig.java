@@ -23,12 +23,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable(); // csrf 토큰 비활성화 코드
 
         http.authorizeRequests()
-                .antMatchers("/").authenticated() // 이 주소로 시작되면 인증이 필요
+                .antMatchers("/main", "/item/**").authenticated() // 이 주소로 시작되면 인증이 필요
                 .anyRequest().permitAll() // 그게 아닌 모든 주소는 인증 필요 없음
                 .and()
                 .formLogin()
                 .loginPage("/signin") // 인증필요한 주소로 접속하면 이 주소로 이동시킴(GetMapping)
                 .loginProcessingUrl("/signin") // 스프링 시큐리티가 로그인 자동 진행(PostMapping)
-                .defaultSuccessUrl("/board/list"); // 로그인이 정상적이면 "/" 로 이동
+                .defaultSuccessUrl("/main"); // 로그인이 정상적이면 "/main" 로 이동
     }
 }
