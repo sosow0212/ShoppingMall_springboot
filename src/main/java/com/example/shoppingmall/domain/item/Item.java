@@ -26,8 +26,9 @@ public class Item {
     private User user;
 
     private boolean isSoldout; // ture = 매진
+    private int stock; // 재고
+
     private int count; // 판매량
-    private int stock; // 남은 재고
 
     //photo;
 }

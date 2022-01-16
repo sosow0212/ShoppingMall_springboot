@@ -2,6 +2,7 @@ package com.example.shoppingmall.web;
 
 import com.example.shoppingmall.domain.item.Item;
 import com.example.shoppingmall.service.ItemService;
+import com.example.shoppingmall.web.dto.item.ItemDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,12 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class ItemController {
 
-    private static ItemService itemService;
+    private final ItemService itemService;
 
     // 메인 페이지
     @GetMapping({"/", "item"})
-    public String mainPage(Model model) {
-        model.addAttribute("items", itemService.allItemView());
+    public String mainPage() {
         return "main";
     }
 
