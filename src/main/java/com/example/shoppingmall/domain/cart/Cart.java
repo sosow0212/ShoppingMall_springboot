@@ -1,6 +1,7 @@
-package com.example.shoppingmall.domain.item;
+package com.example.shoppingmall.domain.cart;
 
 import com.example.shoppingmall.domain.cart_item.Cart_item;
+import com.example.shoppingmall.domain.item.Item;
 import com.example.shoppingmall.domain.user.User;
 import lombok.*;
 
@@ -14,27 +15,15 @@ import java.util.List;
 @Getter
 @Setter
 @Entity // DB에 테이블 자동 생성
-public class Item {
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name; // 아이템 이름
-    private String text; // 아이템 설명
-    private int price; // 가격
-
-    // user_id // 판매자 아이디
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")
-    private User user;
+    User user;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "cart")
     private List<Cart_item> cart_items = new ArrayList<>();
-
-    private boolean isSoldout; // ture = 매진
-    private int stock; // 재고
-
-    private int count; // 판매량
-
-    //photo;
 }
