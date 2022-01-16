@@ -21,8 +21,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/}">Home</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -40,6 +39,7 @@
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
                     </form>
+
                 </div>
             </div>
         </nav>
@@ -54,14 +54,27 @@
                         <div class="fs-5 mb-5">
                             <span th:text="${item.getPrice()}">아이템 가격</span>
                         </div>
-                        <p class="lead" th:text="${item.getText()}">dkdlxpa tjfaud</p>
+                        <p class="lead" th:text="${item.getText()}">아이템 설명</p>
+
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
                             <button class="btn btn-outline-dark flex-shrink-0" type="button">
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart
                             </button>
+                            <a th:href="@{/item/{id}/modify(id=${item.getId()})}">
+                                <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                                    아이템 수정
+                                </button>
+                            </a>
+                            <a th:href="@{/item/{id}/delete(id=${item.getId()})}">
+                                <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                                    아이템 삭제
+                                </button>
+                            </a>
+
                         </div>
+
                     </div>
                 </div>
             </div>

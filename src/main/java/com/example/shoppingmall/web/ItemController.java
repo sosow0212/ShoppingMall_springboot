@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 public class ItemController {
@@ -17,8 +19,10 @@ public class ItemController {
     private final ItemService itemService;
 
     // 메인 페이지
-    @GetMapping({"/", "item"})
-    public String mainPage() {
+    @GetMapping({"/", "/main"})
+    public String mainPage(Model model) {
+        List<Item> items = itemService.allItemView();
+        model.addAttribute("items", items);
         return "main";
     }
 
@@ -61,7 +65,7 @@ public class ItemController {
     @GetMapping("/item/{id}/delete")
     public String itemDelete(@PathVariable("id") Integer id) {
         itemService.itemDelete(id);
-        return "main";
+        return "redirect:/main";
     }
 
 
