@@ -15,6 +15,7 @@ public class ItemService {
 
     // 아이템 등록
     public void saveItem(Item item) {
+
         itemRepository.save(item);
     }
 
