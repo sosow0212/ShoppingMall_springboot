@@ -5,11 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>쇼핑몰</title>
+    <title>장바구니</title>
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet" />
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation-->
@@ -47,53 +63,57 @@
         </div>
     </div>
 </nav>
-<!-- Header-->
-<header class="bg-dark py-5">
-    <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">이재윤 상점</h1>
-            <p class="lead fw-normal text-white-50 mb-0">상점에 오신 것을 환영합니다.</p>
-        </div>
-    </div>
-</header>
 
 
-<!-- Section-->
-<section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+<div class="container-fluid mt-3">
+    <div class="row">
 
-            <!-- 첫번째 아이템 -->
-            <div class="col mb-5" th:each="item : ${items}">
-                <div class="card h-100">
-                    <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name\-->
-                            <h5 class="fw-bolder" th:text="${item.getName()}">아이템이름</h5>
-                            <!-- Product price-->
-                            <p th:text="|${item.getPrice()} 원|">아이템 가격</p>
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" th:href="@{item/{id}(id=${item.getId()})}">View options</a></div>
-                    </div>
-                </div>
+        <!-- SIDE BAR -->
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            <span data-feather="home"></span>
+                            장바구니
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file"></span>
+                            주문내역
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="shopping-cart"></span>
+                            분석
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="bar-chart-2"></span>
+                            유저설정
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">장바구니</h1>
             </div>
 
-        </div>
+
+        </main>
     </div>
-</section>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
-</footer>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="/js/scripts.js"></script>
+</div>
+
+
+
 </body>
 </html>
