@@ -33,11 +33,7 @@
                         </li>
                     </ul>
                     <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
+
                         <a class="btn btn-outline-dark" href="#" th:text="|${user.getName()}님 환영합니다.|">
                             ~~님 환영
                         </a>
@@ -75,7 +71,7 @@
                                     <!-- Product name\-->
                                     <h5 class="fw-bolder" th:text="${item.getName()}">아이템이름</h5>
                                     <!-- Product price-->
-                                    <p th:text="${item.getPrice()}">아이템 가격</p>
+                                    <p th:text="|${item.getPrice()} 원|">아이템 가격</p>
                                 </div>
                             </div>
                             <!-- Product actions-->

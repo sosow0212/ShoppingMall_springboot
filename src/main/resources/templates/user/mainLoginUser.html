@@ -74,7 +74,7 @@
                             <!-- Product name\-->
                             <h5 class="fw-bolder" th:text="${item.getName()}">아이템이름</h5>
                             <!-- Product price-->
-                            <p th:text="${item.getPrice()}">아이템 가격</p>
+                            <p th:text="|${item.getPrice()} 원|">아이템 가격</p>
                         </div>
                     </div>
                     <!-- Product actions-->
