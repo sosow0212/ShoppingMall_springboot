@@ -1,4 +1,4 @@
-package com.example.shoppingmall.web.dto;
+package com.example.shoppingmall.web;
 
 import com.example.shoppingmall.domain.user.User;
 import com.example.shoppingmall.service.AuthService;
