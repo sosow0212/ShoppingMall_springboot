@@ -1,6 +1,7 @@
 package com.example.shoppingmall.web;
 
 import com.example.shoppingmall.config.auth.PrincipalDetails;
+import com.example.shoppingmall.service.CartService;
 import com.example.shoppingmall.service.UserPageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserPageController {
     private final UserPageService userPageService;
+    private final CartService cartService;
+
 
     // 유저 페이지
     @GetMapping("/user/{id}")

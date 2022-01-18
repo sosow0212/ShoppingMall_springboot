@@ -4,8 +4,10 @@ import com.example.shoppingmall.domain.cart.Cart;
 import com.example.shoppingmall.domain.item.Item;
 import com.example.shoppingmall.domain.user.User;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Builder
 @AllArgsConstructor
@@ -27,6 +29,15 @@ public class Cart_item {
     private Item item;
 
     private int count; // 카트에 담긴 상품 개수
+
+
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private LocalDate createDate; // 날짜
+
+    @PrePersist // DB에 INSERT 되기 직전에 실행. 즉 DB에 값을 넣으면 자동으로 실행됨
+    public void createDate() {
+        this.createDate = LocalDate.now();
+    }
 
 
 }

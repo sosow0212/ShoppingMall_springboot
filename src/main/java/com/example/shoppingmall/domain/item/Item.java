@@ -3,8 +3,10 @@ package com.example.shoppingmall.domain.item;
 import com.example.shoppingmall.domain.cart_item.Cart_item;
 import com.example.shoppingmall.domain.user.User;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +25,8 @@ public class Item {
     private String text; // 아이템 설명
     private int price; // 가격
 
-    private String filename; // 파일 이름
-    private String filepath; // 파일 경로
+    private String filename; // 이미지 파일 이름
+    private String filepath; // 이미지 파일 경로
 
     // user_id // 판매자 아이디
     @ManyToOne(fetch = FetchType.EAGER)
@@ -39,5 +41,11 @@ public class Item {
 
     private int count; // 판매량
 
-    //photo;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private LocalDate createDate; // 날짜
+
+    @PrePersist // DB에 INSERT 되기 직전에 실행. 즉 DB에 값을 넣으면 자동으로 실행됨
+    public void createDate() {
+        this.createDate = LocalDate.now();
+    }
 }
