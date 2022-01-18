@@ -108,6 +108,9 @@
                 <h1 class="h2">장바구니</h1>
             </div>
 
+            <tr th:each="cart_item : ${cartItems}">
+                <td th:text="${cart_item.getItem().getName()}">카트에 담긴 물품명</td><br>
+            </tr>
 
         </main>
     </div>
