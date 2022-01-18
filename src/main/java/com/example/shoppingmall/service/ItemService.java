@@ -49,8 +49,17 @@ public class ItemService {
 
 
     // 아이템 수정
-    public void itemModify(Item item, Integer id) {
+    public void itemModify(Item item, Integer id, MultipartFile file) throws Exception {
+
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/";
+        UUID uuid = UUID.randomUUID();
+        String fileName = uuid + "_" + file.getOriginalFilename();
+        File saveFile = new File(projectPath, fileName);
+        file.transferTo(saveFile);
+
         Item before = itemRepository.findItemById(id);
+        before.setFilename(fileName);
+        before.setFilepath("/files/" + fileName);
         before.setName(item.getName());
         before.setText(item.getText());
         before.setPrice(item.getPrice());

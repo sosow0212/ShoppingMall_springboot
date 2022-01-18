@@ -119,13 +119,13 @@ public class ItemController {
 
     // 아이템 수정 처리
     @PostMapping("/item/{id}/modify/process")
-    public String itemModifyProcess(Item item, @PathVariable("id") Integer id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public String itemModifyProcess(Item item, MultipartFile file, @PathVariable("id") Integer id, @AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
         if(principalDetails.getUser().getRole().equals("ROLE_ADMIN") || (principalDetails.getUser().getRole().equals("ROLE_SELLER"))) {
             // 어드민, 판매자
             User user = itemService.itemView(id).getUser();
             if(user.getId() == principalDetails.getUser().getId()) {
                 // 아이템 등록자와, 로그인 유저가 같으면 수정 진행
-                itemService.itemModify(item, id);
+                itemService.itemModify(item, id, file);
                 return "redirect:/main";
             } else {
                 return "redirect:/main";

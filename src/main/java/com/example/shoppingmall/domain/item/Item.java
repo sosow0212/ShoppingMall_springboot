@@ -23,8 +23,8 @@ public class Item {
     private String text; // 아이템 설명
     private int price; // 가격
 
-    private String filename;
-    private String filepath;
+    private String filename; // 파일 이름
+    private String filepath; // 파일 경로
 
     // user_id // 판매자 아이디
     @ManyToOne(fetch = FetchType.EAGER)
