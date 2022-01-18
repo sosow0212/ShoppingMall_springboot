@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @RequiredArgsConstructor
 @Controller
@@ -39,5 +40,12 @@ public class UserPageController {
         } else {
             return "redirect:/main";
         }
+    }
+
+    // 장바구니 추가
+    @PostMapping("/user/{id}/cart/{itemId}")
+    public String addCart(@PathVariable("id") Integer id, @PathVariable("itemId") Integer itemId) {
+        System.out.println("id == " + id + "  itemId == " + itemId);
+        return "redirect:/item/{itemId}";
     }
 }
