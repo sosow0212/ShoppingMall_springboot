@@ -72,7 +72,7 @@
 
 
                 <form th:action="@{/user/{id}/cart/{itemId}(id=${user.id}, itemId=${item.id})}" method="post" class="d-flex">
-                    <input class="form-control text-center me-3" id="cart" name="cart" type="num" value="1"
+                    <input class="form-control text-center me-3" id="quantity" name="quantity" type="num" value="1"
                            style="max-width: 3rem"/>
                     <button class="btn btn-outline-dark flex-shrink-0" type="submit">
                         <i class="bi-cart-fill me-1"></i>

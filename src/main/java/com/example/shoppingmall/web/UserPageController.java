@@ -1,7 +1,10 @@
 package com.example.shoppingmall.web;
 
 import com.example.shoppingmall.config.auth.PrincipalDetails;
+import com.example.shoppingmall.domain.item.Item;
+import com.example.shoppingmall.domain.user.User;
 import com.example.shoppingmall.service.CartService;
+import com.example.shoppingmall.service.ItemService;
 import com.example.shoppingmall.service.UserPageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserPageController {
     private final UserPageService userPageService;
     private final CartService cartService;
+    private final ItemService itemService;
 
 
     // 유저 페이지
@@ -47,8 +51,15 @@ public class UserPageController {
 
     // 장바구니 추가
     @PostMapping("/user/{id}/cart/{itemId}")
-    public String addCart(@PathVariable("id") Integer id, @PathVariable("itemId") Integer itemId) {
-        System.out.println("id == " + id + "  itemId == " + itemId);
+    public String addCart(@PathVariable("id") Integer id, @PathVariable("itemId") Integer itemId, int quantity) {
+
+        System.out.println("id == " + id + "  itemId == " + itemId + "  quantity == " + quantity);
+
+        User loginUser = userPageService.findUser(id);
+        Item item = itemService.itemView(itemId);
+
+        cartService.addItem(loginUser, item, quantity);
+
         return "redirect:/item/{itemId}";
     }
 }
