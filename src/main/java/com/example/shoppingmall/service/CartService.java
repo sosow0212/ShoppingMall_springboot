@@ -19,8 +19,13 @@ public class CartService {
     // 유저 장바구니에 담긴 물품의 개수가 0개이고, 새로 추가할 때
     // 카트 하나를 생성함
     public void addItem(User user, Item item, int quantity) {
+        // 만약 품절된 물건이라면?
+
+        // 만약 같은 물건을 담는다면?
+
+
         if(cartRepository.findByUserId(user.getId()) == null) {
-            // 유저ID에 대한 장바구니가 없을 때
+            // 유저ID에 대한 장바구니가 없을 때 == 즉 장바구니에 물건을 처음 담는 경우
             Cart cart = new Cart();
             cart.setUser(user);
             cartRepository.save(cart);
