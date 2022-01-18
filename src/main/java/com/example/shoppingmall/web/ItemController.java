@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -81,11 +82,12 @@ public class ItemController {
 
     // 아이템 업로드 진행
     @PostMapping("/item/upload/process")
-    public String itemUploadProcess(Item item, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public String itemUploadProcess(Item item, MultipartFile file, @AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
+        System.out.println("filename == " + file);
         if(principalDetails.getUser().getRole().equals("ROLE_ADMIN") || principalDetails.getUser().getRole().equals("ROLE_SELLER")) {
             // 어드민
             item.setUser(principalDetails.getUser());
-            itemService.saveItem(item);
+            itemService.saveItem(item, file);
             return "redirect:/main";
         } else {
             // 일반 회원이면 거절 당해서 main으로 되돌아감

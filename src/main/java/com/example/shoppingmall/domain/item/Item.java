@@ -23,6 +23,9 @@ public class Item {
     private String text; // 아이템 설명
     private int price; // 가격
 
+    private String filename;
+    private String filepath;
+
     // user_id // 판매자 아이디
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")
