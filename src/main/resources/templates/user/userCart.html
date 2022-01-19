@@ -132,7 +132,7 @@
                         <td th:text="${cart_item.getCount()}">수량</td>
                         <td th:text="${cart_item.getItem().getPrice() * cart_item.getCount()}">가격</td>
                         <td th:text="${cart_item.getCreateDate()}">날짜</td>
-                        <td class="btn btn-outline-dark"><a th:href="@{/user/{id}/cart/{cart_itemId}/delete(id=${cart_item.getCart().getUser().id}, cart_itemId=${cart_item.getId()})}">삭제</a></td>
+                        <td class="btn btn-outline-dark"><a th:href="@{/user/{id}/cart/{cart_itemId}/delete(id=${cart_item.getCart().getUser().id}, cart_itemId=${cart_item.getId()})}" style="text-decoration: none">삭제</a></td>
                     </tr>
                     </tbody>
                 </table>
