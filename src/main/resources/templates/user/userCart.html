@@ -134,10 +134,15 @@
                         <td th:text="${cart_item.getCreateDate()}">날짜</td>
                         <td class="btn btn-outline-dark"><a th:href="@{/user/{id}/cart/{cart_itemId}/delete(id=${cart_item.getCart().getUser().id}, cart_itemId=${cart_item.getId()})}">삭제</a></td>
                     </tr>
-
                     </tbody>
                 </table>
             </div>
+            <hr>
+
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">총 결제금액</h1>
+            </div>
+            <h3 th:text="|${totalPrice} ₩|">xxx원</h3>
         </main>
     </div>
 </div>

@@ -58,7 +58,13 @@ public class UserPageController {
                 // 카트가 있는 경우
                 List<Cart_item> userCart_items = cartFinderService.findUserCart_items(userCart); // 유저의 카트ID가 들어간 모든 Cart_item 반환
 
+                // 물품의 가격 총 합
+                int totalPrice = 0;
+                for (Cart_item item : userCart_items) {
+                    totalPrice += item.getCount() * item.getItem().getPrice();
+                }
 
+                model.addAttribute("totalPrice", totalPrice);
                 model.addAttribute("cartItems", userCart_items);
                 model.addAttribute("user", userPageService.findUser(id));
 
@@ -94,7 +100,14 @@ public class UserPageController {
         cartService.deleteCart_item(cart_itemId);
 
         Cart userCart = cartFinderService.findCart(id); // 유저의 카트
+        // 카트가 있는 경우
         List<Cart_item> userCart_items = cartFinderService.findUserCart_items(userCart); // 유저의 카트ID가 들어간 모든 Cart_item 반환
+        // 물품의 가격 총 합
+        int totalPrice = 0;
+        for (Cart_item item : userCart_items) {
+            totalPrice += item.getCount() * item.getItem().getPrice();
+        }
+        model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("cartItems", userCart_items);
         model.addAttribute("user", userPageService.findUser(id));
 
