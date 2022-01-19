@@ -51,8 +51,8 @@ public class UserPageController {
             // 즉 본인은 본인 페이지만 볼 수 있음
             Cart userCart = cartFinderService.findCart(id); // 유저의 카트
 
-            // 만약 카트가 비어있다면?
             if(userCart == null) {
+                // 만약 카트가 비어있다면?
                 return "redirect:/main";
             } else {
                 // 카트가 있는 경우

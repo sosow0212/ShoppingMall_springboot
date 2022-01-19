@@ -9,19 +9,29 @@ import com.example.shoppingmall.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class CartService {
     private final Cart_itemRepository cart_itemRepository;
     private final CartRepository cartRepository;
+    private final CartFinderService cartFinderService;
 
 
     // 유저 장바구니에 담긴 물품의 개수가 0개이고, 새로 추가할 때
     // 카트 하나를 생성함
     public void addItem(User user, Item item, int quantity) {
-        // 만약 품절된 물건이라면?
 
-        // 만약 같은 물건을 담는다면?
+        // 만약 품절된 물건이라면?
+        if(item.getStock() == 0) {
+            return;
+        }
+
+        // 재고가 3개 남았는데 4개를 담는다면?
+        if(item.getStock() < quantity) {
+            return;
+        }
 
 
         if(cartRepository.findByUserId(user.getId()) == null) {
@@ -38,14 +48,21 @@ public class CartService {
             cart_itemRepository.save(cart_item);
         } else {
             // 유저 ID에 대한 장바구니가 있을 때
-            Cart userCart = cartRepository.findByUserId(user.getId());
 
+            Cart userCart = cartRepository.findByUserId(user.getId());
+            List<Cart_item> allUserCart_item = cartFinderService.findUserCart_items(userCart);
+            for(Cart_item userItem : allUserCart_item) {
+                if(userItem.getItem().getId() == item.getId()) {
+                    // 만약 같은 물건을 담는다면? (중복)
+                    return;
+                }
+            }
+            // 중복인 물건이 없다면
             Cart_item cart_item = new Cart_item();
             cart_item.setCart(userCart);
             cart_item.setItem(item);
             cart_item.setCount(quantity);
             cart_itemRepository.save(cart_item);
-
         }
 
     }
