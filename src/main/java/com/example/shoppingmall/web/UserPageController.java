@@ -45,7 +45,7 @@ public class UserPageController {
 
     // 장바구니
     @GetMapping("/user/{id}/cart")
-    public String userCart(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public String userCartView(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         if (principalDetails.getUser().getId() == id) {
             // 로그인 정보와 접속하는 유저 페이지의 id 값이 같으면 유저페이지 렌더링
             // 즉 본인은 본인 페이지만 볼 수 있음
@@ -57,6 +57,7 @@ public class UserPageController {
             } else {
                 // 카트가 있는 경우
                 List<Cart_item> userCart_items = cartFinderService.findUserCart_items(userCart); // 유저의 카트ID가 들어간 모든 Cart_item 반환
+
 
                 model.addAttribute("cartItems", userCart_items);
                 model.addAttribute("user", userPageService.findUser(id));
@@ -72,7 +73,7 @@ public class UserPageController {
 
     // 장바구니 추가
     @PostMapping("/user/{id}/cart/{itemId}")
-    public String addCart(@PathVariable("id") Integer id, @PathVariable("itemId") Integer itemId, int quantity) {
+    public String addCartItem(@PathVariable("id") Integer id, @PathVariable("itemId") Integer itemId, int quantity) {
 
         System.out.println("id == " + id + "  itemId == " + itemId + "  quantity == " + quantity);
 
@@ -82,5 +83,22 @@ public class UserPageController {
         cartService.addItem(loginUser, item, quantity);
 
         return "redirect:/item/{itemId}";
+    }
+
+
+
+    // 장바구니 삭제
+    @GetMapping("/user/{id}/cart/{cart_itemId}/delete")
+    public String deleteCartItem(@PathVariable("id") Integer id ,@PathVariable("cart_itemId") Integer cart_itemId, Model model) {
+
+        cartService.deleteCart_item(cart_itemId);
+
+        Cart userCart = cartFinderService.findCart(id); // 유저의 카트
+        List<Cart_item> userCart_items = cartFinderService.findUserCart_items(userCart); // 유저의 카트ID가 들어간 모든 Cart_item 반환
+        model.addAttribute("cartItems", userCart_items);
+        model.addAttribute("user", userPageService.findUser(id));
+
+        return "/user/userCart";
+
     }
 }

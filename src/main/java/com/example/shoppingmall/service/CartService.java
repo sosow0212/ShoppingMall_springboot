@@ -21,6 +21,7 @@ public class CartService {
 
     // 유저 장바구니에 담긴 물품의 개수가 0개이고, 새로 추가할 때
     // 카트 하나를 생성함
+    // 장바구니에 물건 추가 메소드
     public void addItem(User user, Item item, int quantity) {
 
         // 만약 품절된 물건이라면?
@@ -64,7 +65,12 @@ public class CartService {
             cart_item.setCount(quantity);
             cart_itemRepository.save(cart_item);
         }
+    }
 
+
+    // 장바구니에 담긴 아이템 삭제 (== cart_item 삭제)
+    public void deleteCart_item(int id) {
+        cart_itemRepository.deleteById(id);
     }
 
 

@@ -121,16 +121,18 @@
                         <th scope="col">수량</th>
                         <th scope="col">가격</th>
                         <th scope="col">담은날짜</th>
+                        <th scope="col">삭제</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="cart_item : ${cartItems}">
-                        <td>1</td>
+                    <tr th:each="cart_item, i : ${cartItems}">
+                        <td th:text="${i.count}">1</td>
                         <td th:text="${cart_item.getItem().getId()}">3번상품</td>
                         <td th:text="${cart_item.getItem().getName()}">상품명</td>
                         <td th:text="${cart_item.getCount()}">수량</td>
                         <td th:text="${cart_item.getItem().getPrice() * cart_item.getCount()}">가격</td>
                         <td th:text="${cart_item.getCreateDate()}">날짜</td>
+                        <td class="btn btn-outline-dark"><a th:href="@{/user/{id}/cart/{cart_itemId}/delete(id=${cart_item.getCart().getUser().id}, cart_itemId=${cart_item.getId()})}">삭제</a></td>
                     </tr>
 
                     </tbody>
