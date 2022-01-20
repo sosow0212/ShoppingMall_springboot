@@ -32,6 +32,8 @@ public class User {
     private String grade; // 회원등급
     private String role; // 권한
 
+    private int money;
+
     @OneToMany(mappedBy = "user")
     private List<Item> items = new ArrayList<>(); // item의 판매자와 연결
 

@@ -51,7 +51,7 @@ public class UserPageController {
             // 즉 본인은 본인 페이지만 볼 수 있음
             Cart userCart = cartFinderService.findCart(id); // 유저의 카트
 
-            if(userCart == null) {
+            if (userCart == null) {
                 // 만약 카트가 비어있다면?
                 return "redirect:/main";
             } else {
@@ -92,10 +92,9 @@ public class UserPageController {
     }
 
 
-
     // 장바구니 삭제
     @GetMapping("/user/{id}/cart/{cart_itemId}/delete")
-    public String deleteCartItem(@PathVariable("id") Integer id ,@PathVariable("cart_itemId") Integer cart_itemId, Model model) {
+    public String deleteCartItem(@PathVariable("id") Integer id, @PathVariable("cart_itemId") Integer cart_itemId, Model model) {
 
         cartService.deleteCart_item(cart_itemId);
 
@@ -113,5 +112,70 @@ public class UserPageController {
 
         return "/user/userCart";
 
+    }
+
+
+
+    // 장바구니 구매 진행
+    @PostMapping("/user/{id}/cart/checkout")
+    public String checkout(@PathVariable("id") Integer id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        if(principalDetails.getUser().getId() == id) {
+
+            // 로그인한 유저가 구매를 진행하는 경우
+            Cart userCart = cartFinderService.findCart(id); // 유저의 카트
+            List<Cart_item> userCart_items = cartFinderService.findUserCart_items(userCart); // 유저의 카트ID가 들어간 모든 Cart_item 반환
+
+            // 총 결제 금액 구하기 & 품절 상품 및 재고가 적은 경우 처리
+            int totalPrice = 0;
+            for (Cart_item item : userCart_items) {
+                if(item.getItem().getStock() == 0 || item.getCount() > item.getItem().getStock()) {
+                    // 품절 상품이 있거나, 유저가 구매하려는 물건의 재고가 더 많은 경우
+                    // 추후에 JS로 팝업 띄우기
+                    return "redirect:/main";
+                }
+                totalPrice += item.getCount() * item.getItem().getPrice();
+            }
+
+
+            // 전체 결제 처리
+            User loginUser = userPageService.findUser(id);
+            int loginUserMoney = loginUser.getMoney();
+
+            if(loginUserMoney < totalPrice) {
+                // 결제 금액이 부족한 경우
+                return "redirect:/main";
+            } else {
+                // 결제 처리 & 재고 처리
+                // 각각의 아이템에 대해 하나씩 처리
+
+                for(Cart_item item : userCart_items) {
+                    User seller = item.getItem().getUser(); // 판매자
+
+                    // 결제 처리
+                    loginUser.setMoney(loginUser.getMoney() - (item.getCount() * item.getItem().getPrice()));
+                    seller.setMoney(seller.getMoney() + (item.getCount() * item.getItem().getPrice()));
+
+                    // 재고 처리
+                    item.getItem().setStock(item.getItem().getStock() - item.getCount());
+
+                    // item-count (판매자의 물품이 얼마나 팔렸는지 count) 처리
+                    item.getItem().setCount(item.getItem().getCount() + item.getCount());
+                }
+
+
+            }
+
+
+
+
+
+
+        } else {
+            // 다른 사용자가 구매를 시도하는 경우
+            return "redirect:/main";
+        }
+
+        return "";
     }
 }

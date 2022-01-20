@@ -147,7 +147,7 @@
                         <div class="card-header py-3">
                             <h4 class="my-0 fw-normal">총 결제금액</h4>
                         </div>
-                        <form class="card-body">
+                        <form class="card-body" th:action="@{/user/{id}/cart/checkout(id=${user.getId()})}" method="post">
                             <h1 class="card-title pricing-card-title" th:text="|${totalPrice} ₩|">$0</h1>
                             <ul class="list-unstyled mt-3 mb-4">
                                 <li>잘못 담은 물건이 있는지 확인해보세요!</li>
