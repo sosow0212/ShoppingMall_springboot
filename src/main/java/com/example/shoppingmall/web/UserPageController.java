@@ -118,11 +118,11 @@ public class UserPageController {
 
     // 장바구니 구매 진행
     @PostMapping("/user/{id}/cart/checkout")
-    public String checkout(@PathVariable("id") Integer id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public String checkout(@PathVariable("id") Integer id, @AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
 
         if(principalDetails.getUser().getId() == id) {
-
             // 로그인한 유저가 구매를 진행하는 경우
+
             Cart userCart = cartFinderService.findCart(id); // 유저의 카트
             List<Cart_item> userCart_items = cartFinderService.findUserCart_items(userCart); // 유저의 카트ID가 들어간 모든 Cart_item 반환
 
@@ -143,9 +143,11 @@ public class UserPageController {
             int loginUserMoney = loginUser.getMoney();
 
             if(loginUserMoney < totalPrice) {
+
                 // 결제 금액이 부족한 경우
                 return "redirect:/main";
             } else {
+
                 // 결제 처리 & 재고 처리
                 // 각각의 아이템에 대해 하나씩 처리
 
@@ -161,21 +163,24 @@ public class UserPageController {
 
                     // item-count (판매자의 물품이 얼마나 팔렸는지 count) 처리
                     item.getItem().setCount(item.getItem().getCount() + item.getCount());
+
+
+                    // 결제를 마친 경우 - 장바구니 품목 모두 제거
+                    cartService.deleteCart_item(item.getId());
                 }
-
-
             }
 
 
-
-
+            model.addAttribute("totalPrice", totalPrice);
+            model.addAttribute("cartItems", userCart_items);
+            model.addAttribute("user", userPageService.findUser(id));
+            return "redirect:/user/{id}/cart";
 
 
         } else {
+
             // 다른 사용자가 구매를 시도하는 경우
             return "redirect:/main";
         }
-
-        return "";
     }
 }
