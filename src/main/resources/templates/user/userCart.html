@@ -139,10 +139,24 @@
             </div>
             <hr>
 
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">총 결제금액</h1>
+
+
+            <div class="row row-cols-1 row-cols-md-3 mb-3 text-center mt-3">
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal">총 결제금액</h4>
+                        </div>
+                        <form class="card-body">
+                            <h1 class="card-title pricing-card-title" th:text="|${totalPrice} ₩|">$0</h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>잘못 담은 물건이 있는지 확인해보세요!</li>
+                            </ul>
+                            <button type="submit" class="w-100 btn btn-lg btn-outline-primary">구매하기</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <h3 th:text="|${totalPrice} ₩|">xxx원</h3>
         </main>
     </div>
 </div>
