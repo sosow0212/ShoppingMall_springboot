@@ -1,5 +1,6 @@
 package com.example.shoppingmall.service;
 
+import com.example.shoppingmall.domain.cart_item.Cart_item;
 import com.example.shoppingmall.domain.item.Item;
 import com.example.shoppingmall.domain.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,8 @@ import java.util.UUID;
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private final CartService cartService;
+    private final CartFinderService cartFinderService;
 
     // 아이템 등록
     public void saveItem(Item item, MultipartFile file) throws Exception {
@@ -50,6 +53,8 @@ public class ItemService {
 
     // 아이템 수정
     public void itemModify(Item item, Integer id, MultipartFile file) throws Exception {
+        // 아이템 수정할 때 장바구니에 담긴 아이템들 변동 사항에 맞춰 수정해야함
+        // if) 아이템 물량을 0으로 맞춘다면?, 금액을 올려서 장바구니에 가격이 초과된다면?
 
         String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/";
         UUID uuid = UUID.randomUUID();
@@ -71,6 +76,15 @@ public class ItemService {
 
     // 아이템 삭제
     public void itemDelete(Integer id) {
+        // 유저의 장바구니에 물품이 담긴 경우 장바구니 삭제 후 물품 삭제
+
+        List<Cart_item> items = cartFinderService.findCart_itemByItemId(id);
+        // 아이템이 담긴 Cart_item 들
+
+        for(Cart_item item : items) {
+            cartService.deleteCart_item(item.getId());
+        }
+
         itemRepository.deleteById(id);
     }
 

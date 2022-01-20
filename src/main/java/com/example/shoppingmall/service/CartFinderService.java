@@ -22,6 +22,7 @@ public class CartFinderService {
     }
 
 
+
     // 유저의 Cart id가 들어있는 모든 Cart_item 을 반환해준다
     public List<Cart_item> findUserCart_items(Cart userCart) {
         //
@@ -37,5 +38,11 @@ public class CartFinderService {
         }
 
         return allUserCart_items;
+    }
+
+
+    public List<Cart_item> findCart_itemByItemId(int id) {
+        List<Cart_item> cart_items = cart_itemRepository.findCart_itemByItemId(id);
+        return cart_items;
     }
 }
