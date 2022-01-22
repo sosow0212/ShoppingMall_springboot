@@ -10,7 +10,6 @@ import com.example.shoppingmall.service.CartService;
 import com.example.shoppingmall.service.ItemService;
 import com.example.shoppingmall.service.UserPageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.datasource.init.ScriptUtils;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,7 +55,7 @@ public class UserPageController {
     @PostMapping("/user/{id}/update")
     public String userPageModifyProcess(@PathVariable("id") Integer id, User user) {
         userPageService.userPageModify(user);
-        return "/user/userPage";
+        return "redirect:/user/{id}";
     }
 
 

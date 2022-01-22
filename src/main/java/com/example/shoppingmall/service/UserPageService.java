@@ -20,6 +20,7 @@ public class UserPageService {
         before.setEmail(user.getEmail());
         before.setAddress(user.getAddress());
         before.setPhone(user.getPhone());
+        userRepository.save(before);
 
     }
 }
