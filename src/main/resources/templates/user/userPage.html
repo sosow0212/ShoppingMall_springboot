@@ -56,6 +56,9 @@
                 <a class="btn btn-outline-dark" th:href="@{/user/{id}(id=${user.getId()})}" th:text="|${user.getName()}님 환영합니다.|">
                     ~~님 환영
                 </a>
+                <a class="btn btn-outline-dark" href="#" th:text="|현재잔액 : ${user.getMoney()} ₩|">
+                    현재잔액 : 10000 ₩
+                </a>
                 <a class="btn btn-outline-dark" th:href="@{/logout}">
                     로그아웃
                 </a>
@@ -107,6 +110,38 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">유저페이지</h1>
             </div>
+
+            <!-- Product section-->
+            <section class="py-5">
+                <div class="container px-4 px-lg-5 my-5">
+                    <div class="row gx-4 gx-lg-5 align-items-center">
+                        <div class="col-md-6">
+                            <img class="card-img-top mb-5 mb-md-0" src="/files/a.jpg" alt="..." />
+                        </div>
+                        <div class="col-md-6">
+                            <h1 class="display-5 fw-bolder" th:text="${user.username}">username</h1>
+                            <div class="fs-5 mb-5">
+                                <span th:text="${user.role}">user role</span>
+                            </div>
+                            <div class="fs-5 mb-5">
+                                <span th:text="${user.email}">user email</span>
+                            </div>
+                            <div class="fs-5 mb-5">
+                                <span th:text="${user.address}">user address</span>
+                            </div>
+                            <div class="fs-5 mb-5">
+                                <span th:text="${user.phone}">user phone</span>
+                            </div>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <div class="footer">
+                                <a th:href="@{/user/{id}/modify(id=${user.id})}" class="btn btn-dark">수정하기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
 
         </main>

@@ -14,4 +14,12 @@ public class UserPageService {
     public User findUser(Integer id) {
         return userRepository.findById(id).get();
     }
+
+    public void userPageModify(User user) {
+        User before = userRepository.findById(user.getId()); // 기존 유저
+        before.setEmail(user.getEmail());
+        before.setAddress(user.getAddress());
+        before.setPhone(user.getPhone());
+
+    }
 }

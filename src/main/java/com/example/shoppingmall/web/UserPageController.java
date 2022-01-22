@@ -40,8 +40,27 @@ public class UserPageController {
         } else {
             return "redirect:/main";
         }
-
     }
+
+    // 유저 페이지 수정 렌더링
+    @GetMapping("/user/{id}/modify")
+    public String userPageModify(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        if(principalDetails.getUser().getId() == id) {
+            model.addAttribute("user", userPageService.findUser(id));
+            return "/user/userPageEdit";
+        } else {
+            return "redirect:/main";
+        }
+    }
+
+    @PostMapping("/user/{id}/update")
+    public String userPageModifyProcess(@PathVariable("id") Integer id, User user) {
+        userPageService.userPageModify(user);
+        return "/user/userPage";
+    }
+
+
+
 
     // 장바구니
     @GetMapping("/user/{id}/cart")
@@ -58,12 +77,17 @@ public class UserPageController {
                 // 카트가 있는 경우
                 List<Cart_item> userCart_items = cartFinderService.findUserCart_items(userCart); // 유저의 카트ID가 들어간 모든 Cart_item 반환
 
+                // 카트에 담긴 아이템의 수
+                int cartCount = 0;
+
                 // 물품의 가격 총 합
                 int totalPrice = 0;
                 for (Cart_item item : userCart_items) {
+                    cartCount += 1;
                     totalPrice += item.getCount() * item.getItem().getPrice();
                 }
 
+                model.addAttribute("cartCount", cartCount);
                 model.addAttribute("totalPrice", totalPrice);
                 model.addAttribute("cartItems", userCart_items);
                 model.addAttribute("user", userPageService.findUser(id));
