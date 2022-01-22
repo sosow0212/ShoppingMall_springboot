@@ -2,6 +2,7 @@ package com.example.shoppingmall.web;
 
 import com.example.shoppingmall.config.auth.PrincipalDetails;
 import com.example.shoppingmall.domain.item.Item;
+import com.example.shoppingmall.domain.user.User;
 import com.example.shoppingmall.service.ItemService;
 import com.example.shoppingmall.service.UserPageService;
 import lombok.RequiredArgsConstructor;
@@ -22,23 +23,26 @@ public class SellerPageController {
 
     @GetMapping("/seller/{id}")
     public String sellerPage(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        if(principalDetails.getUser().getRole().equals("ROLE_USER")) {
-            // 일반 유저가 판매관리 페이지로 올 경우 main으로 리턴
+        if (principalDetails.getUser().getId() != id) {
+            // 판매자 본인이 아니면 메인으로 보내버림
             return "redirect:/main";
         } else {
-            // ROLE_ADMIN인 유저는 판매관리 렌더링 가능
-
+            // 판매자 본인이 접속한 경우
+            User seller = userPageService.findUser(id);
             List<Item> allItem = itemService.allItemView();
             List<Item> userItem = new ArrayList<>();
+            // 총 판매대금
+            int totalPrice = 0;
 
-
-            for(Item item : allItem ) {
-                if(item.getUser().getId() == id) {
+            for (Item item : allItem) {
+                if (item.getUser().getId() == id) {
                     userItem.add(item);
+                    totalPrice += item.getPrice() * item.getCount();
                 }
             }
 
-            model.addAttribute("seller", userPageService.findUser(id));
+            model.addAttribute("totalPrice", totalPrice);
+            model.addAttribute("seller", seller);
             model.addAttribute("userItem", userItem);
             return "seller/sellerPage";
         }

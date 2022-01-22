@@ -76,7 +76,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">
                             <span data-feather="home"></span>
-                            Dashboard
+                            판매목록
                         </a>
                     </li>
                     <li class="nav-item">
@@ -112,7 +112,7 @@
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Dashboard</h1>
+                <h1 class="h2">판매목록</h1>
             </div>
 
 
@@ -125,6 +125,7 @@
                         <th scope="col">가격</th>
                         <th scope="col">판매량</th>
                         <th scope="col">재고</th>
+                        <th scope="col">판매수익</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -144,10 +145,31 @@
                         <td>
                             <p th:text="${item.stock}">30개 남았습니다.</p>
                         </td>
+                        <td>
+                            <p th:text="${item.count * item.price}">판매 수익 10000원</p>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
+
+            <div class="row row-cols-1 row-cols-md-3 mb-3 text-center mt-3">
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal">총 판매 금액</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title" th:text="|${totalPrice} ₩|">$0</h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>판매자님의 판매 대금입니다!</li>
+                            </ul>
+                            <button type="submit" class="w-100 btn btn-lg btn-outline-primary">Wow</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
         </main>
     </div>
