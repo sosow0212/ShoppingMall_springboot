@@ -24,8 +24,8 @@ public class History {
 
 
     private String itemName; // 구매한 아이템 명
-    private int price; // 구매한 아이템 가격
-    private int count; // 구매한 아이템 수량
+    private int itemPrice; // 구매한 아이템 가격
+    private int itemCount; // 구매한 아이템 수량
 
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private LocalDate createDate; // 구매 날짜

@@ -4,6 +4,7 @@ import com.example.shoppingmall.domain.cart.Cart;
 import com.example.shoppingmall.domain.cart.CartRepository;
 import com.example.shoppingmall.domain.cart_item.Cart_item;
 import com.example.shoppingmall.domain.cart_item.Cart_itemRepository;
+import com.example.shoppingmall.domain.history.History;
 import com.example.shoppingmall.domain.history.HistoryRepository;
 import com.example.shoppingmall.domain.item.Item;
 import com.example.shoppingmall.domain.user.User;
@@ -19,7 +20,7 @@ public class CartService {
     private final CartRepository cartRepository;
     private final CartFinderService cartFinderService;
     private final HistoryRepository historyRepository;
-
+    private final UserPageService userPageService;
 
     // 유저 장바구니에 담긴 물품의 개수가 0개이고, 새로 추가할 때
     // 카트 하나를 생성함
@@ -78,7 +79,19 @@ public class CartService {
 
     // 주문내역에 구매 내역 남기는 로직
     public void saveHistory(int id, Cart_item item) {
+        // 유저 id와 cartItem을 매개변수로 받음
 
+        User user = userPageService.findUser(id);
+        History history = new History();
+
+        history.setUser(user);
+        history.setItemName(item.getItem().getName());
+        history.setItemPrice(item.getItem().getPrice());
+        history.setItemCount(item.getCount());
+    }
+
+    public List<History> getHistories(User user) {
+        return historyRepository.findHistoriesByUser(user);
     }
 
 
