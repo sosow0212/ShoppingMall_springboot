@@ -4,6 +4,7 @@ import com.example.shoppingmall.domain.cart.Cart;
 import com.example.shoppingmall.domain.cart.CartRepository;
 import com.example.shoppingmall.domain.cart_item.Cart_item;
 import com.example.shoppingmall.domain.cart_item.Cart_itemRepository;
+import com.example.shoppingmall.domain.history.HistoryRepository;
 import com.example.shoppingmall.domain.item.Item;
 import com.example.shoppingmall.domain.user.User;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ public class CartService {
     private final Cart_itemRepository cart_itemRepository;
     private final CartRepository cartRepository;
     private final CartFinderService cartFinderService;
+    private final HistoryRepository historyRepository;
 
 
     // 유저 장바구니에 담긴 물품의 개수가 0개이고, 새로 추가할 때
@@ -71,6 +73,12 @@ public class CartService {
     // 장바구니에 담긴 아이템 삭제 (== cart_item 삭제)
     public void deleteCart_item(int id) {
         cart_itemRepository.deleteById(id);
+    }
+
+
+    // 주문내역에 구매 내역 남기는 로직
+    public void saveHistory(int id, Cart_item item) {
+
     }
 
 

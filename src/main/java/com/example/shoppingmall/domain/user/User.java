@@ -1,6 +1,7 @@
 package com.example.shoppingmall.domain.user;
 
 import com.example.shoppingmall.domain.cart.Cart;
+import com.example.shoppingmall.domain.history.History;
 import com.example.shoppingmall.domain.item.Item;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -36,6 +37,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Item> items = new ArrayList<>(); // item의 판매자와 연결
+
+    @OneToMany(mappedBy = "user")
+    private List<History> history = new ArrayList<>();
 
     @OneToOne(mappedBy = "user")
     private Cart cart;

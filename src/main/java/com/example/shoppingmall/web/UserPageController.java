@@ -195,7 +195,8 @@ public class UserPageController {
                     item.getItem().setCount(item.getItem().getCount() + item.getCount());
 
 
-                    // 결제를 마친 경우 - 장바구니 품목 모두 제거
+                    // 결제를 마친 경우 주문내역 담기 및 장바구니 품목 모두 제거
+                    cartService.saveHistory(id, item);
                     cartService.deleteCart_item(item.getId());
                 }
             }
