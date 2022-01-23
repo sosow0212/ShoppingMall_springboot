@@ -1,8 +1,10 @@
 package com.example.shoppingmall.web;
 
 import com.example.shoppingmall.config.auth.PrincipalDetails;
+import com.example.shoppingmall.domain.history.History;
 import com.example.shoppingmall.domain.item.Item;
 import com.example.shoppingmall.domain.user.User;
+import com.example.shoppingmall.service.CartService;
 import com.example.shoppingmall.service.ItemService;
 import com.example.shoppingmall.service.UserPageService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ import java.util.List;
 public class SellerPageController {
     private final UserPageService userPageService;
     private final ItemService itemService;
+    private final CartService cartService;
 
     @GetMapping("/seller/{id}")
     public String sellerPage(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
@@ -54,8 +57,10 @@ public class SellerPageController {
     public String sellerHistory(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         if(principalDetails.getUser().getId() == id) {
             User user = userPageService.findUser(id);
+            List<History> histories = cartService.getHistoriesForSeller(user);
 
-
+            model.addAttribute("histories", histories);
+            model.addAttribute("user", user);
             return "/seller/sellerHistory";
         } else {
             return "redirect:/main";

@@ -204,9 +204,10 @@ public class UserPageController {
                     item.getItem().setCount(item.getItem().getCount() + item.getCount());
 
 
-                    // 결제를 마친 경우 주문내역 담기 && 장바구니 품목 모두 제거 && 판매자에게 정보 전달
+                    // 결제를 마친 경우 주문내역 담기 및 판매자 정보 담기 && 장바구니 품목 모두 제거
                     cartService.saveHistory(id, item);
                     cartService.deleteCart_item(item.getId());
+
 
                 }
             }
@@ -237,7 +238,7 @@ public class UserPageController {
             List<Cart_item> userItems = cartFinderService.findUserCart_items(userCart);
             cartCount = userItems.size();
 
-            List<History> histories = cartService.getHistories(loginUser);
+            List<History> histories = cartService.getHistoriesForUser(loginUser);
 
             model.addAttribute("histories", histories);
             model.addAttribute("cartCount", cartCount);

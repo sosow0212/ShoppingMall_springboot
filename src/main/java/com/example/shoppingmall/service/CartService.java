@@ -88,15 +88,26 @@ public class CartService {
         history.setItemName(item.getItem().getName());
         history.setItemPrice(item.getItem().getPrice());
         history.setItemCount(item.getCount());
+        history.setSeller(item.getItem().getUser());
         historyRepository.save(history);
     }
 
-    public List<History> getHistories(User user) {
+    // 구매자 판매내역 반환
+    public List<History> getHistoriesForUser(User user) {
         if(historyRepository.findHistoriesByUser(user) == null) {
             // 아무것도 없을때 빈 걸 생성해서 보냄
             History history = new History();
         }
         return historyRepository.findHistoriesByUser(user);
+    }
+
+    // 판매자 판매내역 반환
+    public List<History> getHistoriesForSeller(User user) {
+        if(historyRepository.findHistoryBySeller(user) == null) {
+            History history = new History();
+        }
+
+        return historyRepository.findHistoryBySeller(user);
     }
 
 

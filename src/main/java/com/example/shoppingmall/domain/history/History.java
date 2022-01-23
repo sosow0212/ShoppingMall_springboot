@@ -23,6 +23,10 @@ public class History {
     @JoinColumn(name="user_id")
     private User user; // 구매자 유저 정보
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="seller_id")
+    private User seller; // 판매자 정보
+
 
     private String itemName; // 구매한 아이템 명
     private int itemPrice; // 구매한 아이템 가격

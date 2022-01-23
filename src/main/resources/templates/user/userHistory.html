@@ -101,18 +101,22 @@
                     <thead>
                     <tr>
                         <th scope="col">번호</th>
+                        <th scope="col">판매자명</th>
                         <th scope="col">상품명</th>
                         <th scope="col">가격</th>
                         <th scope="col">구매수량</th>
+                        <th scope="col">구매금액</th>
                         <th scope="col">구매날짜</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="history, i : ${histories}">
                         <td th:text="${i.count}">1</td>
+                        <td th:text="${history.getSeller().getName()}">판매자명</td>
                         <td th:text="${history.itemName}">상품명</td>
                         <td th:text="${history.itemPrice}">가격</td>
                         <td th:text="${history.itemCount}">구매수량</td>
+                        <td th:text="${history.itemCount * history.itemPrice}">구매금액</td>
                         <td th:text="${history.getCreateDate()}">구매날짜</td>
                     </tr>
                     </tbody>
