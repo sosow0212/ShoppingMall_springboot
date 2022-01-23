@@ -213,4 +213,26 @@ public class UserPageController {
             return "redirect:/main";
         }
     }
+
+
+    // 주문내역 view 렌더링
+    @GetMapping("/user/{id}/history")
+    public String UserHistory(@PathVariable("id") Integer id, @AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+        if(principalDetails.getUser().getId() == id) {
+
+            int cartCount = 0;
+            User loginUser = userPageService.findUser(principalDetails.getUser().getId());
+            Cart userCart = cartFinderService.findCart(loginUser.getId());
+            List<Cart_item> userItems = cartFinderService.findUserCart_items(userCart);
+            cartCount = userItems.size();
+
+
+
+            model.addAttribute("cartCount", cartCount);
+            model.addAttribute("user", id);
+            return "/user/userHistory";
+        } else {
+            return "redirect:/main";
+        }
+    }
 }
