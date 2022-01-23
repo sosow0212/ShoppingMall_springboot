@@ -32,7 +32,14 @@ public class UserPageController {
     // 유저 페이지
     @GetMapping("/user/{id}")
     public String userPage(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        if (principalDetails.getUser().getId() == id) {
+        if (principalDetails.getUser().getId() == id && principalDetails.getUser().getRole().equals("ROLE_SELLER")) {
+            // 로그인 정보가 일치하고, 판매자일 경우
+            User loginUser = userPageService.findUser(principalDetails.getUser().getId());
+            model.addAttribute("user",userPageService.findUser(id));
+            return "/seller/sellerUserPage";
+        }
+
+        else if (principalDetails.getUser().getId() == id && principalDetails.getUser().getRole().equals("ROLE_USER")) {
             // 로그인 정보와 접속하는 유저 페이지의 id 값이 같으면 유저페이지 렌더링
             // 즉 본인은 본인 페이지만 볼 수 있음
             int cartCount = 0;
