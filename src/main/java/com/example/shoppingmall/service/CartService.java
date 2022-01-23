@@ -88,9 +88,14 @@ public class CartService {
         history.setItemName(item.getItem().getName());
         history.setItemPrice(item.getItem().getPrice());
         history.setItemCount(item.getCount());
+        historyRepository.save(history);
     }
 
     public List<History> getHistories(User user) {
+        if(historyRepository.findHistoriesByUser(user) == null) {
+            // 아무것도 없을때 빈 걸 생성해서 보냄
+            History history = new History();
+        }
         return historyRepository.findHistoriesByUser(user);
     }
 

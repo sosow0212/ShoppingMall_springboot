@@ -3,6 +3,7 @@ package com.example.shoppingmall.web;
 import com.example.shoppingmall.config.auth.PrincipalDetails;
 import com.example.shoppingmall.domain.cart.Cart;
 import com.example.shoppingmall.domain.cart_item.Cart_item;
+import com.example.shoppingmall.domain.history.History;
 import com.example.shoppingmall.domain.item.Item;
 import com.example.shoppingmall.domain.user.User;
 import com.example.shoppingmall.service.CartFinderService;
@@ -227,11 +228,11 @@ public class UserPageController {
             List<Cart_item> userItems = cartFinderService.findUserCart_items(userCart);
             cartCount = userItems.size();
 
+            List<History> histories = cartService.getHistories(loginUser);
 
-
-
+            model.addAttribute("histories", histories);
             model.addAttribute("cartCount", cartCount);
-            model.addAttribute("user", id);
+            model.addAttribute("user", loginUser);
             return "/user/userHistory";
         } else {
             return "redirect:/main";

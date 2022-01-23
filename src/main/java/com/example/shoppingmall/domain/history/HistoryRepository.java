@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface HistoryRepository extends JpaRepository<History, Integer> {
     List<History> findHistoriesByUser(User user);
+    History findHistoryByUser(User user);
 }
