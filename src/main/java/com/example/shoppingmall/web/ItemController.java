@@ -1,9 +1,14 @@
 package com.example.shoppingmall.web;
 
 import com.example.shoppingmall.config.auth.PrincipalDetails;
+import com.example.shoppingmall.domain.cart.Cart;
+import com.example.shoppingmall.domain.cart_item.Cart_item;
 import com.example.shoppingmall.domain.item.Item;
 import com.example.shoppingmall.domain.user.User;
+import com.example.shoppingmall.service.CartFinderService;
+import com.example.shoppingmall.service.CartService;
 import com.example.shoppingmall.service.ItemService;
+import com.example.shoppingmall.service.UserPageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -20,12 +25,16 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
+    private final CartFinderService cartFinderService;
+    private final CartService cartService;
+    private final UserPageService userPageService;
 
     // 메인 페이지 (로그인 안 한 유저)
     @GetMapping("/")
     public String mainPageNoneLogin(Model model) {
         // 로그인을 안 한 경우
         List<Item> items = itemService.allItemView();
+
         model.addAttribute("items", items);
         return "/none/main";
     }
@@ -43,6 +52,14 @@ public class ItemController {
         } else {
             // 일반 유저일 경우
             List<Item> items = itemService.allItemView();
+
+            int cartCount = 0;
+            User loginUser = userPageService.findUser(principalDetails.getUser().getId());
+            Cart userCart = cartFinderService.findCart(loginUser.getId());
+            List<Cart_item> userItems = cartFinderService.findUserCart_items(userCart);
+            cartCount = userItems.size();
+
+            model.addAttribute("cartCount", cartCount);
             model.addAttribute("items", items);
             model.addAttribute("user", principalDetails.getUser());
             return "user/mainLoginUser";
@@ -60,6 +77,13 @@ public class ItemController {
             return "/seller/item";
         } else {
             // 일반 회원
+            int cartCount = 0;
+            User loginUser = userPageService.findUser(principalDetails.getUser().getId());
+            Cart userCart = cartFinderService.findCart(loginUser.getId());
+            List<Cart_item> userItems = cartFinderService.findUserCart_items(userCart);
+            cartCount = userItems.size();
+
+            model.addAttribute("cartCount", cartCount);
             model.addAttribute("user", principalDetails.getUser());
             model.addAttribute("item", itemService.itemView(id));
             return "/user/item";
