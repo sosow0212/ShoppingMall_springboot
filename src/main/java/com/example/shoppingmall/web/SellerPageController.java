@@ -46,6 +46,19 @@ public class SellerPageController {
             model.addAttribute("userItem", userItem);
             return "seller/sellerPage";
         }
+    }
 
+
+    // 판매 통계 페이지
+    @GetMapping("/seller/{id}/history")
+    public String sellerHistory(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        if(principalDetails.getUser().getId() == id) {
+            User user = userPageService.findUser(id);
+
+
+            return "/seller/sellerHistory";
+        } else {
+            return "redirect:/main";
+        }
     }
 }

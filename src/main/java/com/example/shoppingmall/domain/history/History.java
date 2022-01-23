@@ -18,9 +18,10 @@ public class History {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")
-    private User user;
+    private User user; // 구매자 유저 정보
 
 
     private String itemName; // 구매한 아이템 명

@@ -186,6 +186,7 @@ public class UserPageController {
                 return "redirect:/main";
             } else {
 
+
                 // 결제 처리 & 재고 처리
                 // 각각의 아이템에 대해 하나씩 처리
 
@@ -203,9 +204,10 @@ public class UserPageController {
                     item.getItem().setCount(item.getItem().getCount() + item.getCount());
 
 
-                    // 결제를 마친 경우 주문내역 담기 및 장바구니 품목 모두 제거
+                    // 결제를 마친 경우 주문내역 담기 && 장바구니 품목 모두 제거 && 판매자에게 정보 전달
                     cartService.saveHistory(id, item);
                     cartService.deleteCart_item(item.getId());
+
                 }
             }
 
