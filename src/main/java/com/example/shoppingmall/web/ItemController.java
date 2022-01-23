@@ -45,9 +45,10 @@ public class ItemController {
     public String mainPage(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         if(principalDetails.getUser().getRole().equals("ROLE_ADMIN") || principalDetails.getUser().getRole().equals("ROLE_SELLER")) {
             // 어드민, 판매자
+            User loginUser = userPageService.findUser(principalDetails.getUser().getId());
             List<Item> items = itemService.allItemView();
             model.addAttribute("items", items);
-            model.addAttribute("user", principalDetails.getUser());
+            model.addAttribute("user", loginUser);
             return "/seller/mainLoginSeller";
         } else {
             // 일반 유저일 경우
