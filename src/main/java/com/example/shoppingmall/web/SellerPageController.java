@@ -58,7 +58,10 @@ public class SellerPageController {
         if(principalDetails.getUser().getId() == id) {
             User user = userPageService.findUser(id);
             List<History> histories = cartService.getHistoriesForSeller(user);
+            List<Item> items = itemService.itemsBySeller(id); // 판매자가 올린 아이템을 판매량 기준으로 내림차순
 
+
+            model.addAttribute("items", items);
             model.addAttribute("histories", histories);
             model.addAttribute("user", user);
             return "/seller/sellerHistory";

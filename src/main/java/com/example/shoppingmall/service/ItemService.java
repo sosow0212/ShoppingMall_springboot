@@ -4,6 +4,7 @@ import com.example.shoppingmall.domain.cart_item.Cart_item;
 import com.example.shoppingmall.domain.item.Item;
 import com.example.shoppingmall.domain.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,6 +49,16 @@ public class ItemService {
     // 아이템 개별로 불러오기
     public Item itemView(Integer id) {
         return itemRepository.findById(id).get();
+    }
+
+
+    // 판매자가 등록한 아이템들 불러오기 (판매량 기준 내림차순)
+    public List<Item> itemsBySeller(Integer id) {
+        if(itemRepository.findItemsByUserIdOrderByCountDesc(id) == null) {
+            return null;
+        } else {
+            return itemRepository.findItemsByUserIdOrderByCountDesc(id);
+        }
     }
 
 
