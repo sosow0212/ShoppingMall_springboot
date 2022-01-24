@@ -10,6 +10,7 @@ import com.example.shoppingmall.domain.item.Item;
 import com.example.shoppingmall.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class CartService {
     // 유저 장바구니에 담긴 물품의 개수가 0개이고, 새로 추가할 때
     // 카트 하나를 생성함
     // 장바구니에 물건 추가 메소드
+    @Transactional
     public void addItem(User user, Item item, int quantity) {
 
         // 만약 품절된 물건이라면?
@@ -78,6 +80,7 @@ public class CartService {
 
 
     // 주문내역에 구매 내역 남기는 로직
+    @Transactional
     public void saveHistory(int id, Cart_item item) {
         // 유저 id와 cartItem을 매개변수로 받음
 

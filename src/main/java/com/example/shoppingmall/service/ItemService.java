@@ -6,6 +6,7 @@ import com.example.shoppingmall.domain.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -63,6 +64,7 @@ public class ItemService {
 
 
     // 아이템 수정
+    @Transactional
     public void itemModify(Item item, Integer id, MultipartFile file) throws Exception {
         // 아이템 수정할 때 장바구니에 담긴 아이템들 변동 사항에 맞춰 수정해야함
 
@@ -95,6 +97,7 @@ public class ItemService {
 
 
     // 아이템 삭제
+    @Transactional
     public void itemDelete(Integer id) {
         // 유저의 장바구니에 물품이 담긴 경우 장바구니 삭제 후 물품 삭제
 
