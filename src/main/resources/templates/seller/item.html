@@ -56,7 +56,7 @@
                         </div>
                         <p class="lead" th:text="${item.getText()}">아이템 설명</p>
 
-                        <div class="d-flex">
+                        <div class="d-flex" th:if="${#authentication.principal.user.id} == ${item.getUser().getId()}">
 
                             <a th:href="@{/item/{id}/modify(id=${item.getId()})}">
                                 <button class="btn btn-outline-dark flex-shrink-0" type="button">

@@ -58,7 +58,7 @@ public class ItemController {
         model.addAttribute("items", items);
         model.addAttribute("user", loginUser);
 
-        return "seller/mainLoginSeller";
+        return "mainLoginPage";
     }
 
 
