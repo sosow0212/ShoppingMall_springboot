@@ -36,35 +36,29 @@ public class ItemController {
         List<Item> items = itemService.allItemView();
 
         model.addAttribute("items", items);
-        return "/none/main";
+        return "none/main";
     }
 
 
     // 메인 페이지 (로그인 유저)
     @GetMapping("/main")
     public String mainPage(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        if(principalDetails.getUser().getRole().equals("ROLE_ADMIN") || principalDetails.getUser().getRole().equals("ROLE_SELLER")) {
-            // 어드민, 판매자
-            User loginUser = userPageService.findUser(principalDetails.getUser().getId());
-            List<Item> items = itemService.allItemView();
-            model.addAttribute("items", items);
-            model.addAttribute("user", loginUser);
-            return "/seller/mainLoginSeller";
-        } else {
-            // 일반 유저일 경우
-            List<Item> items = itemService.allItemView();
+        List<Item> items = itemService.allItemView();
+        User loginUser = userPageService.findUser(principalDetails.getUser().getId());
 
+        if(principalDetails.getUser().getRole().equals("ROLE_USER")) {
+            // 일반 유저일 경우
             int cartCount = 0;
-            User loginUser = userPageService.findUser(principalDetails.getUser().getId());
             Cart userCart = cartFinderService.findCart(loginUser.getId());
             List<Cart_item> userItems = cartFinderService.findUserCart_items(userCart);
             cartCount = userItems.size();
-
             model.addAttribute("cartCount", cartCount);
-            model.addAttribute("items", items);
-            model.addAttribute("user", principalDetails.getUser());
-            return "user/mainLoginUser";
         }
+
+        model.addAttribute("items", items);
+        model.addAttribute("user", loginUser);
+
+        return "seller/mainLoginSeller";
     }
 
 
