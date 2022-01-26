@@ -26,6 +26,7 @@ public class CartService {
     // 유저 장바구니에 담긴 물품의 개수가 0개이고, 새로 추가할 때
     // 카트 하나를 생성함
     // 장바구니에 물건 추가 메소드
+
     @Transactional
     public void addItem(User user, Item item, int quantity) {
 
