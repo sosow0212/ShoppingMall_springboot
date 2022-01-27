@@ -33,6 +33,9 @@ public class User {
     private String grade; // 회원등급
     private String role; // 권한
 
+    private String filename; // 파일 이름
+    private String filepath; // 파일 경로
+
     private int money;
 
     @OneToMany(mappedBy = "user")

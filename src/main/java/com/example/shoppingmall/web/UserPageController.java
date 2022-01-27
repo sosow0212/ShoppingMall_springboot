@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,8 +69,8 @@ public class UserPageController {
     }
 
     @PostMapping("/user/{id}/update")
-    public String userPageModifyProcess(@PathVariable("id") Integer id, User user) {
-        userPageService.userPageModify(user);
+    public String userPageModifyProcess(@PathVariable("id") Integer id, User user, MultipartFile file) throws Exception {
+        userPageService.userPageModify(user, file);
         return "redirect:/user/{id}";
     }
 
