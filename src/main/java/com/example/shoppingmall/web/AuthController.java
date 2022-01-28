@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @Controller
@@ -26,12 +27,12 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public String signup(SignupDto signupDto) {
+    public String signup(SignupDto signupDto, MultipartFile file) throws Exception {
 
         // User에 signupDto 넣음
         User user = signupDto.toEntity();
 
-        User userEntity = authService.signup(user);
+        User userEntity = authService.signup(user, file);
         System.out.println(userEntity);
 
         return "signin"; //
