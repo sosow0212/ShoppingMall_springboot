@@ -1,6 +1,8 @@
 package com.example.shoppingmall.service;
 
 
+import com.example.shoppingmall.domain.cart.Cart;
+import com.example.shoppingmall.domain.cart.CartRepository;
 import com.example.shoppingmall.domain.user.User;
 import com.example.shoppingmall.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import java.util.UUID;
 public class AuthService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final CartRepository cartRepository;
 
     @Transactional // Write(Insert, Update, Delete)
     public User signup(User user, MultipartFile file) throws Exception {
@@ -37,6 +40,13 @@ public class AuthService {
         user.setGrade("BRONZE"); // 기본 Grade 설정
 
         User userEntity = userRepository.save(user);
+
+        Cart cart = new Cart();
+        cart.setUser(user);
+        cartRepository.save(cart);
+
+
+
         return userEntity;
 
     }
