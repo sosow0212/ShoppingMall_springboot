@@ -67,14 +67,6 @@
         <h1 class="h2">판매목록</h1>
     </div>
 
-    구매자 = 김땡땡
-    상품명 = 참이슬
-    상품가격 = 1000원
-    구매수량 = 5개
-    총지불금액 = 5000원
-    주소 = 어디어디
-    커밋버튼 / 취소버튼
-
     <div class="row g-5 mt-5">
         <div class="col-md-7 col-lg-8 container">
             <div class="row g-3">
@@ -90,7 +82,7 @@
 
                 <div class="col-12">
                     <label for="item_name" class="form-label">상품명</label>
-                    <input type="text" class="form-control" id="item_name" name="item_name" readonly th:value="${history.item_name}">
+                    <input type="text" class="form-control" id="item_name" name="item_name" readonly th:value="${history.itemName}">
                     <div class="invalid-feedback">
                         Price is empty.
                     </div>
@@ -98,7 +90,7 @@
 
                 <div class="col-12">
                     <label for="count" class="form-label">구매수량</label>
-                    <input type="text" class="form-control" id="count" name="count" readonly th:value="${history.item_count}">
+                    <input type="text" class="form-control" id="count" name="count" readonly th:value="${history.itemCount}">
                     <div class="invalid-feedback">
                         Stock is empty.
                     </div>
@@ -106,7 +98,7 @@
 
                 <div class="col-12">
                     <label for="totalPrice" class="form-label">지불금액</label>
-                    <input type="text" class="form-control" id="totalPrice" name="totalPrice" readonly th:value="${history.item_count}">
+                    <input type="text" class="form-control" id="totalPrice" name="totalPrice" readonly th:value="${history.itemCount * history.itemPrice}">
                     <div class="invalid-feedback">
                         Text is empty.
                     </div>

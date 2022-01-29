@@ -22,6 +22,9 @@ public class SaleHistoryController {
     // 판매내역 페이지
     @GetMapping("/seller/{sellerId}/history/{historyId}")
     public String salePageView(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable("sellerId}") Integer sellerId, @PathVariable("historyId") Integer historyId, Model model) {
+
+        System.out.println("실행 0");
+
         if(principalDetails.getUser().getId() != sellerId) {
             return "redirect:/main";
         }
@@ -30,10 +33,14 @@ public class SaleHistoryController {
         User user = history.getUser(); //
         User seller = history.getSeller();
 
+        System.out.println("작동1");
+
         model.addAttribute("user", user);
         model.addAttribute("seller", seller);
         model.addAttribute("history", history);
 
-        return "salePage";
+        System.out.println(history);
+
+        return "/seller/salePage";
     }
 }
