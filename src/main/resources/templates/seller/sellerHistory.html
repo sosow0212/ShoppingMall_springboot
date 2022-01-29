@@ -91,7 +91,7 @@
                     <tbody>
                     <tr th:each="history, i : ${histories}">
                         <td th:text="${i.count}">1</td>
-                        <td><a th:text="${history.getUser().getName()}" th:href="@{/seller/{sellerId}/history/{historyId}(sellerId = ${history.getSeller().id}, historyId = ${history.getId()})}">구매자명</a></td>
+                        <td><a th:text="${history.getUser().getName()}" th:href="@{/seller/{sellerId}/history/{historyId}(sellerId = ${history.getSeller().getId()}, historyId = ${history.getId()})}">구매자명</a></td>
                         <td th:text="${history.itemName}">상품명</td>
                         <td th:text="${history.itemPrice}">가격</td>
                         <td th:text="${history.itemCount}">판매수량</td>

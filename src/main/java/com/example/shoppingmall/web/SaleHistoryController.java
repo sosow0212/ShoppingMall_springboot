@@ -21,9 +21,7 @@ public class SaleHistoryController {
 
     // 판매내역 페이지
     @GetMapping("/seller/{sellerId}/history/{historyId}")
-    public String salePageView(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable("sellerId}") Integer sellerId, @PathVariable("historyId") Integer historyId, Model model) {
-
-        System.out.println("실행 0");
+    public String salePageView(@PathVariable("sellerId") Integer sellerId, @PathVariable("historyId") Integer historyId, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         if(principalDetails.getUser().getId() != sellerId) {
             return "redirect:/main";
@@ -32,8 +30,6 @@ public class SaleHistoryController {
         History history = cartService.getHistory(historyId);
         User user = history.getUser(); //
         User seller = history.getSeller();
-
-        System.out.println("작동1");
 
         model.addAttribute("user", user);
         model.addAttribute("seller", seller);
