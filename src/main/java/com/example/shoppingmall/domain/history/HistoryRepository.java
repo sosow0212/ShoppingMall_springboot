@@ -10,4 +10,6 @@ public interface HistoryRepository extends JpaRepository<History, Integer> {
     History findHistoryByUser(User user);
 
     List<History> findHistoryBySeller(User user); // seller
+
+    History findHistoryById(int id);
 }

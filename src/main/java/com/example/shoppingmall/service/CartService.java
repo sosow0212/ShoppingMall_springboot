@@ -115,4 +115,8 @@ public class CartService {
     }
 
 
+    public History getHistory(int id) {
+        return historyRepository.findHistoryById(id);
+    }
+
 }
