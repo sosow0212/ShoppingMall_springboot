@@ -32,6 +32,7 @@ public class SaleHistoryController {
 
         model.addAttribute("user", user);
         model.addAttribute("seller", seller);
+        model.addAttribute("history", history);
 
         return "salePage";
     }
