@@ -41,4 +41,9 @@ public class UserPageService {
         userRepository.save(before);
 
     }
+
+    public void chargeMoney(User user, int money) {
+        user.setMoney(user.getMoney() + money);
+        userRepository.save(user);
+    }
 }

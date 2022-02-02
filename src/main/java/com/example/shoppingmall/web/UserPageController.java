@@ -249,4 +249,28 @@ public class UserPageController {
             return "redirect:/main";
         }
     }
+
+
+
+    // 잔액충전 페이지 렌더링
+    @GetMapping("/user/{id}/charge")
+    public String ChargeMoney(@PathVariable("id") Integer id, @AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+        if (id != principalDetails.getUser().getId()) {
+            return "redirect:/main";
+        }
+
+        model.addAttribute("user", userPageService.findUser(id));
+        return "/user/chargePage";
+    }
+
+    @PostMapping("/user/{id}/charge/process")
+    public String ChargeMoneyProcess(@PathVariable("id") Integer id, @AuthenticationPrincipal PrincipalDetails principalDetails, int chargeMoney) {
+        if (id != principalDetails.getUser().getId()) {
+            return "redirect:/main";
+        }
+
+        User user = userPageService.findUser(id);
+        userPageService.chargeMoney(user, chargeMoney);
+        return "redirect:/main";
+    }
 }

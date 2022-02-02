@@ -117,11 +117,15 @@
                             <div class="fs-5 mb-5">
                                 <span th:text="${user.phone}">user phone</span>
                             </div>
+                            <div class="fs-5 mb-5">
+                                <span th:text="${user.money}">user Money</span>
+                            </div>
                             <p></p>
                             <p></p>
                             <p></p>
                             <div class="footer">
                                 <a th:href="@{/user/{id}/modify(id=${user.id})}" class="btn btn-dark">수정하기</a>
+                                <a th:href="@{/user/{id}/charge(id=${user.id})}" class="btn btn-dark">금액충전</a>
                             </div>
                         </div>
                     </div>
