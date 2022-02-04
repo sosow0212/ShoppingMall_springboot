@@ -263,14 +263,11 @@ public class UserPageController {
         return "/user/chargePage";
     }
 
-    @PostMapping("/user/{id}/charge/process")
-    public String ChargeMoneyProcess(@PathVariable("id") Integer id, @AuthenticationPrincipal PrincipalDetails principalDetails, int chargeMoney) {
-        if (id != principalDetails.getUser().getId()) {
-            return "redirect:/main";
-        }
+    @GetMapping("/user/charge/process")
+    public String ChargeMoneyProcess(@AuthenticationPrincipal PrincipalDetails principalDetails, int amount) {
 
-        User user = userPageService.findUser(id);
-        userPageService.chargeMoney(user, chargeMoney);
+        System.out.println(amount);
+        userPageService.chargeMoney(principalDetails.getUser(), amount);
         return "redirect:/main";
     }
 }
